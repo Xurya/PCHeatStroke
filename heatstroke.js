@@ -17,7 +17,7 @@ var config2 = ini.parse(fs.readFileSync("./config/config.ini", 'utf-8'));
 const city = config2.General.city;
 const state = config2.General.state;
 const key = config2.General.key;
-const maxTemp = config2.Safety.maxtemp;
+const maxTemp = config2.Safety.maxTemp;
 const hours = config2.Safety.hours;
 
 const url = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "," + state + "&units=imperial&" + "appid=" + key;
@@ -31,8 +31,8 @@ function trigger(data){
     + currentdate.getHours() + ":" 
     + currentdate.getMinutes() + ":" + currentdate.getSeconds();
 
-    // get server time - required
     var x = 'START';
+    console.log(temp + " " + maxTemp);
     if(temp > maxTemp){
         x = 'STOP';
     }
