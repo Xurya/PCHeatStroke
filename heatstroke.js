@@ -1,4 +1,4 @@
-import config from './config'
+import config from './config/config'
 import Api from './api'
 
 var log = function () {
