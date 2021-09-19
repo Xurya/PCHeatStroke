@@ -14,19 +14,17 @@ const https = require('https');
 
 var config2 = ini.parse(fs.readFileSync("./config/config.ini", 'utf-8'));
 
-// const city = config2.General.city;
-// const state = config2.General.state;
+const city = config2.General.city;
+const state = config2.General.state;
 const key = config2.General.key;
-const zip = config2.General.zip;
 const maxTemp = config2.Safety.maxTemp;
 const hours = config2.Safety.hours;
-const rigId = config2.Rig.worker;
 
-const url = "https://api.weatherapi.com/v1/current.json?key=" + key + "&q=" + zip + "&aqi=no";
+const url = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "," + state + "&units=imperial&" + "appid=" + key;
 const workerurl = "/main/api/v2/mining/rig2/status2";
 
 function trigger(data){
-    var temp = data.current.temp_f;
+    var temp = data.main.temp;
     var currentdate = new Date();
     var datetime = currentdate.getDay() + "/" + currentdate.getMonth() 
     + "/" + currentdate.getFullYear() + " " 
@@ -40,7 +38,7 @@ function trigger(data){
     }
     api.getTime()
     .then(() => {
-        var body = {rigId: rigId, action:x};
+        var body = {rigId: '0-JcoWnDfMeVqTKlUA3rRolQ', action:x};
         return api.post('/main/api/v2/mining/rigs/status2', {body});
     })
     .then(res => {
